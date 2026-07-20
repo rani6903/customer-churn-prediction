@@ -1,16 +1,15 @@
 from pathlib import Path
 
-# Project root
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
-# Directories
 DATA_DIR = PROJECT_ROOT / "data"
 MODEL_DIR = PROJECT_ROOT / "model"
 ARTIFACT_DIR = PROJECT_ROOT / "artifacts"
 
-# Files
-DATA_FILE = DATA_DIR / "telco_customer_churn.csv"
+DATA_FILE = DATA_DIR / "telco-customer-churn.csv"
 
-# Create directories if missing
-MODEL_DIR.mkdir(exist_ok=True)
-ARTIFACT_DIR.mkdir(exist_ok=True)
+MODEL_FILE = MODEL_DIR / "churn_model.pkl"
+RESULTS_FILE = ARTIFACT_DIR / "model_results.csv"
+
+MODEL_DIR.mkdir(parents=True, exist_ok=True)
+ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)

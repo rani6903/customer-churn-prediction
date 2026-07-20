@@ -1,11 +1,14 @@
 from src.data_loader import DataLoader
+from src.explainer import ModelExplainer
 
 loader = DataLoader()
 
-df = loader.load_data()
+df = loader.clean_data(loader.load_data())
 
-loader.validate_columns(df)
+X = df.drop(columns=["customerID", "Churn"])
 
-print(df.head())
+explainer = ModelExplainer()
 
-print(df.shape)
+result = explainer.explain_prediction(X.iloc[[0]])
+
+print(result)

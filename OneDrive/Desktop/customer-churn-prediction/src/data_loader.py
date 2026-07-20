@@ -57,3 +57,20 @@ class DataLoader:
             )
 
         logger.info("Dataset validation successful.")
+
+    def clean_data(self, df):
+        """
+        Basic cleaning before preprocessing.
+        """
+
+        df["TotalCharges"] = (
+            df["TotalCharges"]
+            .replace(" ", None)
+        )
+
+        df["TotalCharges"] = (
+            df["TotalCharges"]
+            .astype(float)
+        )
+
+        return df
