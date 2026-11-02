@@ -1,0 +1,31 @@
+{
+    "best_threshold": 0.3629542756043871,
+    "threshold_selection_reason": "Highest precision while recall >= 0.70",
+    "target_recall": 0.7,
+    "validation_metrics": {
+        "Threshold": 0.3629542756043871,
+        "Accuracy": 0.78708303761533,
+        "Precision": 0.5822222222222222,
+        "Recall": 0.7005347593582888,
+        "F1": 0.6359223300970874,
+        "ROC_AUC": 0.839922240305872
+    },
+    "test_metrics": {
+        "Threshold": 0.3629542756043871,
+        "Accuracy": 0.7821149751596878,
+        "Precision": 0.572354211663067,
+        "Recall": 0.7085561497326203,
+        "F1": 0.6332138590203107,
+        "ROC_AUC": 0.8432974243715932
+    },
+    "confusion_matrix": [
+        [
+            837,
+            198
+        ],
+        [
+            109,
+            265
+        ]
+    ]
+}

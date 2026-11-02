@@ -1,32 +1,21 @@
 from fastapi import APIRouter
 import pandas as pd
-
-from api.schemas import (
-    CustomerRequest,
-    PredictionResponse,
-)
-
+from api.schemas import CustomerRequest, PredictionResponse
 from src.predictor import Predictor
 
+
+predictor = Predictor()
 router = APIRouter()
 
-predictor = Predictor()
 
-from src.explainer import ModelExplainer
+@router.post(
+    "/predict",
+    response_model=PredictionResponse
+)
+def predict_customer(customer: CustomerRequest):
 
-predictor = Predictor()
-explainer = ModelExplainer()
+    data = pd.DataFrame([customer.model_dump()])
 
+    result = predictor.predict(data)
 
-@router.post("/predict")
-def predict(customer: CustomerRequest):
-
-    df = pd.DataFrame([customer.model_dump()])
-
-    prediction = predictor.predict(df)
-
-    features = explainer.explain_prediction(df)
-
-    prediction["top_features"] = features
-
-    return prediction
+    return result

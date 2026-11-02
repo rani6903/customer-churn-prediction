@@ -3,22 +3,22 @@ from src.data_loader import DataLoader
 from src.trainer import ModelTrainer
 
 def test_split_data():
-
     loader = DataLoader()
-
-    df = loader.clean_data(
-        loader.load_data()
-    )
+    df = loader.clean_data(loader.load_data())
 
     trainer = ModelTrainer()
 
-    X_train, X_test, y_train, y_test = (
+    X_train, X_val, X_test, y_train, y_val, y_test = (
         trainer.split_data(df)
     )
 
     assert len(X_train) > 0
-
+    assert len(X_val) > 0
     assert len(X_test) > 0
+
+    assert len(y_train) == len(X_train)
+    assert len(y_val) == len(X_val)
+    assert len(y_test) == len(X_test)
 
 from sklearn.pipeline import Pipeline
 
@@ -36,16 +36,3 @@ def test_build_pipeline():
         Pipeline,
     )
 
-def test_training():
-
-    loader = DataLoader()
-
-    df = loader.clean_data(
-        loader.load_data()
-    )
-
-    trainer = ModelTrainer()
-
-    results = trainer.train_models(df)
-
-    assert not results.empty

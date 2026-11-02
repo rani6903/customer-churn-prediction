@@ -205,7 +205,7 @@ if submit:
                 )
 
             st.image(
-                "artifacts/plots/waterfall_plot.png",
+                "artifacts/explanations/waterfall_plot.png",
                 caption="Prediction Explanation"
             )
             st.markdown("""

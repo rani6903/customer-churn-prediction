@@ -92,7 +92,4 @@ class DataPreprocessor:
 
         return self.pipeline
     
-        joblib.dump(
-            pipeline,
-    "       artifacts/preprocessor.pkl",
-        )
+       

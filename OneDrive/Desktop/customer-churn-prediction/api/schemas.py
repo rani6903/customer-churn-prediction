@@ -1,5 +1,6 @@
+
 from pydantic import BaseModel, Field
-from src.explainer import ModelExplainer
+
 
 class CustomerRequest(BaseModel):
     gender: str
@@ -23,32 +24,25 @@ class CustomerRequest(BaseModel):
     TotalCharges: float
 
 
-class PredictionResponse(BaseModel):
-    prediction: str = Field(
-    ...,
-    json_schema_extra={
-        "example": "Likely to Churn"
-    }
-)
-
-    probability: float = Field(
-    ...,
-    json_schema_extra={
-        "example": 87.45
-    }
-)
-    
-
-
 class FeatureImportance(BaseModel):
     feature: str
     impact: float
 
 
 class PredictionResponse(BaseModel):
-    prediction: str
-    probability: float
+
+    prediction: str = Field(
+        ...,
+        json_schema_extra={
+            "example": "Likely to Churn"
+        }
+    )
+
+    probability: float = Field(
+        ...,
+        json_schema_extra={
+            "example": 87.42
+        }
+    )
+
     top_features: list[FeatureImportance]
-
-
-
