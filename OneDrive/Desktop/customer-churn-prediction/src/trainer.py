@@ -17,6 +17,7 @@ from sklearn.metrics import (
 )
 
 from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
 
 from sklearn.ensemble import (
     RandomForestClassifier,
@@ -41,6 +42,9 @@ class ModelTrainer:
             "Logistic Regression":
                 LogisticRegression(max_iter=1000),
 
+            "Decision Tree":
+                DecisionTreeClassifier(random_state=42),
+
             "Random Forest":
                 RandomForestClassifier(random_state=42),
 
@@ -59,6 +63,15 @@ class ModelTrainer:
 
             "Logistic Regression": {
                 "classifier__C": [0.01, 0.1, 1, 10, 100],
+            },
+
+            "Decision Tree": {
+                "classifier__criterion": ["gini", "entropy", "log_loss"],
+                "classifier__max_depth": [3, 5, 10, 20, None],
+                "classifier__min_samples_split": [2, 5, 10, 20],
+                "classifier__min_samples_leaf": [1, 2, 4, 8],
+                "classifier__max_features": [None, "sqrt", "log2"],
+                "classifier__class_weight": [None, "balanced"],
             },
 
             "Random Forest": {

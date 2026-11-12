@@ -1,5 +1,19 @@
 import streamlit as st
-import requests
+import pandas as pd
+from pathlib import Path
+import sys
+
+# Add project root to Python path
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(PROJECT_ROOT))
+
+from src.predictor import Predictor
+
+@st.cache_resource
+def load_predictor():
+    return Predictor()
+
+predictor = load_predictor()
 
 st.set_page_config(
     page_title="Customer Churn Prediction",
@@ -147,7 +161,6 @@ with st.form("prediction_form"):
 if submit:
 
     payload = {
-
         "gender": gender,
         "SeniorCitizen": senior,
         "Partner": partner,
@@ -169,62 +182,44 @@ if submit:
         "TotalCharges": total,
     }
 
-    response = requests.post(
-        "http://127.0.0.1:8000/api/v1/predict",
-        json=payload
-    )
+    try:
+        # Convert customer information into a DataFrame
+        customer_data = pd.DataFrame([payload])
 
-    if response.status_code == 200:
-
-        result = response.json()
+        # Make prediction directly using the ML model
+        result = predictor.predict(customer_data)
 
         st.success(result["prediction"])
 
-        # st.metric(
-        #     "Probability",
-        #     f"{result['probability']:.2f}%"
-        # )
         st.metric(
-        "Probability",
-        f"{result['probability']:.2f}%"
+            "Churn Probability",
+            f"{result['probability']:.2f}%"
         )
 
-        st.progress(result['probability'] / 100)
+        st.progress(result["probability"] / 100)
 
-        with st.expander("Prediction Details"):
-            st.json(result)
-    
-        if "top_features" in result:
+        st.subheader("Top Factors Influencing Prediction")
 
-            st.subheader("Top Factors")
-
-            for feature in result["top_features"]:
-
-                st.write(
-                    f"**{feature['feature']}** : {feature['impact']:.3f}"
-                )
-
-            st.image(
-                "artifacts/explanations/waterfall_plot.png",
-                caption="Prediction Explanation"
+        for feature in result["top_features"]:
+            st.write(
+                f"**{feature['feature']}** : "
+                f"{feature['impact']:.3f}"
             )
-            st.markdown("""
-            <style>
 
-            .main{
-                padding-top:1rem;
-            }
+        # Display SHAP waterfall plot if available
+        plot_path = PROJECT_ROOT / "artifacts" / "explanations" / "waterfall_plot.png"
 
-            h1{
-                color:#0E76A8;
-            }
+        if plot_path.exists():
+            st.image(
+                str(plot_path),
+                caption="SHAP Prediction Explanation",
+                width='stretch'
+            )
+        else:
+            st.info("SHAP waterfall plot is not available.")
 
-            </style>
-            """, unsafe_allow_html=True)
-
-    else:
-
-        st.error("Prediction failed.")
+    except Exception as e:
+        st.error(f"Prediction failed: {e}")
 
         
     

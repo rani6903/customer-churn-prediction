@@ -1,6 +1,7 @@
 
 from pathlib import Path
 import json
+from altair.datasets import data
 import joblib
 import pandas as pd
 
@@ -73,6 +74,9 @@ class Predictor:
         prediction = int(
             churn_probability >= self.threshold
         )
+
+        # Generate waterfall plot for this customer
+        self.explainer.waterfall_plot(data)
 
         # Generate SHAP explanation using the same threshold
         explanation = self.explainer.explain_prediction(
