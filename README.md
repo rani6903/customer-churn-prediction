@@ -4,7 +4,7 @@ Machine Learning project that predicts customer churn using classification algor
 **Project Overview**
 
 This project uses Machine Learning to analyze customer information and predict whether a customer is likely to churn. 
-It also provides a REST API, an interactive Streamlit dashboard, and model explainability using SHAP.
+It also provides an interactive Streamlit dashboard, and model explainability using SHAP.
 
 **STREAMLIT UI**
 
