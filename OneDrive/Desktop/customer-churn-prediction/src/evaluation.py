@@ -92,7 +92,6 @@ def save_evaluation_plots(y_true, probabilities, predictions, output_dir):
     plt.title("Confusion Matrix - Final Test Set")
     plt.tight_layout()
     plt.savefig(output_dir / "confusion_matrix.png", dpi=300)
-    plt.show()
     plt.close()
 
     # 2. ROC curve
@@ -100,7 +99,6 @@ def save_evaluation_plots(y_true, probabilities, predictions, output_dir):
     plt.title("ROC Curve - Final Test Set")
     plt.tight_layout()
     plt.savefig(output_dir / "roc_curve.png", dpi=300)
-    plt.show()
     plt.close()
 
     # 3. Precision-Recall curve
@@ -108,7 +106,6 @@ def save_evaluation_plots(y_true, probabilities, predictions, output_dir):
     plt.title("Precision-Recall Curve - Final Test Set")
     plt.tight_layout()
     plt.savefig(output_dir / "precision_recall_curve.png", dpi=300)
-    plt.show()
     plt.close()
 
     return cm

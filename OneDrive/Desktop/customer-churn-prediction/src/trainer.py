@@ -24,7 +24,6 @@ from sklearn.ensemble import (
     GradientBoostingClassifier,
 )
 
-from xgboost import XGBClassifier
 
 from src.preprocess import DataPreprocessor
 from src.config import MODEL_FILE, RESULTS_FILE
@@ -50,12 +49,6 @@ class ModelTrainer:
 
             "Gradient Boosting":
                 GradientBoostingClassifier(random_state=42),
-
-            "XGBoost":
-                XGBClassifier(
-                    random_state=42,
-                    eval_metric="logloss",
-                ),
         }
 
         # Hyperparameter search spaces
@@ -86,14 +79,6 @@ class ModelTrainer:
                 "classifier__learning_rate": [0.01, 0.05, 0.1],
                 "classifier__max_depth": [2, 3, 5],
                 "classifier__min_samples_leaf": [1, 2, 4],
-            },
-
-            "XGBoost": {
-                "classifier__n_estimators": [100, 200, 300],
-                "classifier__max_depth": [3, 5, 7],
-                "classifier__learning_rate": [0.01, 0.05, 0.1],
-                "classifier__subsample": [0.7, 0.8, 1.0],
-                "classifier__colsample_bytree": [0.7, 0.8, 1.0],
             },
         }
 

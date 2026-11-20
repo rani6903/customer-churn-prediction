@@ -30,13 +30,13 @@ trainer = ModelTrainer()
 ) = trainer.train_models(df)
 
 
-# STEP 4: Display selected model
-print("\nBest model:", best_name)
+# # STEP 4: Display selected model
+# print("\nBest model:", best_name)
 
 
-# STEP 5: Display model comparison
-print("\nModel comparison:")
-print(results.to_string(index=False))
+# # STEP 5: Display model comparison
+# print("\nModel comparison:")
+# print(results.to_string(index=False))
 
 
 # # STEP 6: Display selected threshold
@@ -57,21 +57,20 @@ print(results.to_string(index=False))
 #     print(importance_df.head(10).to_string(index=False))
 
 
-# # STEP 9: Explain a prediction using saved model
-# X = df.drop(columns=["customerID", "Churn"])
+# STEP 9: Explain a prediction using saved model
+X = df.drop(columns=["customerID", "Churn"])
 
-# explainer = ModelExplainer()
+explainer = ModelExplainer()
 
-# result = explainer.explain_prediction(
-#     X.iloc[[0]],
-#     threshold=best_threshold
-# )
+result = explainer.explain_prediction(
+    X.iloc[[0]],
+    threshold=best_threshold
+)
 
-# print("\nPrediction explanation:")
-# print(result)
+print("\nPrediction explanation:")
+print(result)
 
-# print("\nPrediction explanation:")
-# print(result)
+
 
 
 
